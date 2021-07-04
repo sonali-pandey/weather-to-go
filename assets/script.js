@@ -1,13 +1,25 @@
-var userFormEl = document.querySelector("#user-form");
-var userInputEl = document.querySelector("#city-name")
-const apiKey = "64eb91bf2065795eb1daaa57db853cad";
+var dataSubmitEl = document.querySelector("#submit");
+var userInputEl = document.querySelector("#city-name");
+var cityEl = document.querySelector("#city");
 
 var formSubmitHandler = function(event){
  event.preventDefault();
 
- // input data
+ // get input data
  var cityName = userInputEl.value.trim();
- console.log(cityName);
-}
 
-userFormEl.addEventListener("click", formSubmitHandler);
+    if(cityName){
+        alert("HEY!");
+    display(cityName);
+    }else(
+        alert("Please enter a city name.")
+    )
+};
+
+var display = function(cityName){
+    // cityEl.textContent = data.city.name;
+    cityEl.textContent = cityName + " (" + dayjs().format("DD/MM/YYYY")+ ")";
+
+};
+
+dataSubmitEl.addEventListener("click", formSubmitHandler);
