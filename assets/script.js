@@ -18,6 +18,7 @@ const weatherLegends = [
     }
     ];
 const legends = ["temp", "wind_speed", "humidity", "uvi"];
+const units = ["<sup>o</sup>F", "<span>MPH</span>", "<span>%</span>", ""]
 var userInput;
 var dateEl = document.querySelector(".date");
 var currentWeatherEl = document.querySelector(".current-day")
@@ -51,6 +52,7 @@ var getCoord = function(){
     })
 }
 
+
 var weatherData = function (name, lon, lat){
     const oneCallApi = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly&appid=${apiKey}`;
 
@@ -60,16 +62,37 @@ var weatherData = function (name, lon, lat){
                 for( var i = 0 ; i < weatherLegends.length ; i++){
                     weatherLegends[i].value = data.current[legends[i]];
                     var listEl = document.createElement("li");
-                    listEl.textContent = weatherLegends[i].name + weatherLegends[i].value;
+                    var markup = `<p>${weatherLegends[i].name}</p><p>${weatherLegends[i].value}</p><p>${units[i]}</p>`;
+                    listEl.innerHTML = markup;
                     currentWeatherEl.appendChild(listEl);
                 }
+                uviCheck();
                 display(name, data.current.weather[0]["icon"], data.current.weather[0]["description"]);
             }else{
                 alert("Please enter valid city Name");
             }
         });
-    });
-    
+    }); 
+}
+
+var uviCheck = function(){
+    $(".current-day li:last-child").attr("id","uvi");
+    $("#uvi p:nth-child(2)").addClass("uvi-data");
+    var uviData = $(".uvi-data");
+    var uviValue = uviData.text();
+
+    if(uviValue<=2){
+        uviData.addClass("green");
+    }
+    else if(uviValue>2 && uviValue<=5){
+        uviData.addClass("yellow");
+    }
+    else if(uviValue>5 && uviValue<=7){
+        uviData.addClass("orange");
+    }
+    else{
+        uviData.addClass("red");
+    }
 }
 
 var display = function(city, icon, description){
