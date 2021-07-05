@@ -34,8 +34,21 @@
         </form>
 
         <section class="current-weather col s9">
-            <h2 id="city"></h2>
+            <div class="wrapper">
+            <div class="title">
+                <h3 id="city"></h3>
+                <time class="date"></time>
+                <img class="icon">
+            </div>
+                <ul class="current-day"></ul>
+            </div>
+        </section>
 
+        <section class="future-weather">
+            <time class="date"></time>
+            <div class="weather-forecast">
+                <ul></ul>
+            </div>
         </section>
     </main>
     <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
