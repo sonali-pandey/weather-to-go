@@ -27,41 +27,33 @@
     </header>
     
     <main class="row">
-        <form id="user-form" class="col s3">
-            <label for="city-name" class="form-label col s12"><h2>Search for a City:</h2></label>
-            <input id="city-name" type="text" placeholder="example: San Diego" class="form-input col s12">
-            <button type="submit" id="submit" class="waves-effect waves-light btn blue col s12">Search</button>
-        </form>
 
-        <section class="current-weather col s9">
-            <div class="wrapper">
-            <div class="title">
-                <h3 id="city"></h3>
-                <time class="date"></time>
-                <img class="icon">
-            </div>
+        <section class="form-wrapper col s3">
+            <form id="user-form" class="col s12">
+                <label for="city-name" class="form-label col s12"><h2>Search for a City:</h2></label>
+                <input id="city-name" type="text" placeholder="example: San Diego" class="form-input col s12">
+                <button type="submit" id="submit" class="waves-effect waves-light btn blue col s12">Search</button>
+            </form>
+        </section>
+
+        <section class="weather col s9">
+            <div class="current-wrapper col s12">
+                <div class="title col s12">
+                    <h3 id="city"></h3>
+                    <time id="current-date"></time>
+                    <img class="icon">
+                </div>
                 <ul class="current-day"></ul>
             </div>
-        </section>
 
-        <section class="future-weather">
-            <time class="date"></time>
-            <div class="weather-forecast">
-                <ul></ul>
-            </div>
-        </section>
-    </main>
+            <h4 class="col s12">5-Day Forecast:</h4>
+
+            <div class="daily-wrapper col s12"></div>
+
+    </section>
+        </main>
+
     <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
-    <!-- <script>
-            $(".current-day li:last-child").attr("id","uvi");
-    var uvi = $("#uvi p:nth-child(2)");
-    var uviValue = uvi.text();
-    var floatVal = Number(uviValue);
-    console.log(floatVal);
-    if(uviValue<=2){
-        uvi.addClass("green");
-    }else{uvi.addClass("red")}
-    </script> -->
     <script src="assets/script.js"></script>
 </body>
 </html>

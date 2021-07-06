@@ -1,4 +1,11 @@
 const apiKey = "64eb91bf2065795eb1daaa57db853cad";
+const legends = ["temp", "wind_speed", "humidity", "uvi"];
+const units = ["<sup>o</sup>F", "<span>MPH</span>", "<span>%</span>", ""]
+const futureDays = 5;
+
+var userInput;
+var currentWeatherEl = document.querySelector(".current-day")
+
 const weatherLegends = [
     {
         name: "Temp: ",
@@ -17,11 +24,7 @@ const weatherLegends = [
         value:"0"
     }
     ];
-const legends = ["temp", "wind_speed", "humidity", "uvi"];
-const units = ["<sup>o</sup>F", "<span>MPH</span>", "<span>%</span>", ""]
-var userInput;
-var dateEl = document.querySelector(".date");
-var currentWeatherEl = document.querySelector(".current-day")
+
 
 
 $("#submit").on("click", function(event){
@@ -59,15 +62,10 @@ var weatherData = function (name, lon, lat){
     fetch(oneCallApi).then(function(response){
         response.json().then(function(data){
             if(response.ok){
-                for( var i = 0 ; i < weatherLegends.length ; i++){
-                    weatherLegends[i].value = data.current[legends[i]];
-                    var listEl = document.createElement("li");
-                    var markup = `<p>${weatherLegends[i].name}</p><p>${weatherLegends[i].value}</p><p>${units[i]}</p>`;
-                    listEl.innerHTML = markup;
-                    currentWeatherEl.appendChild(listEl);
-                }
-                uviCheck();
-                display(name, data.current.weather[0]["icon"], data.current.weather[0]["description"]);
+                displayCurrentData(name,data.current);
+                displayDailyData(data.daily);
+
+                
             }else{
                 alert("Please enter valid city Name");
             }
@@ -95,9 +93,45 @@ var uviCheck = function(){
     }
 }
 
-var display = function(city, icon, description){
+ var displayCurrentData = function(city, current){
+
     $("#city").text(city);
-    dateEl.textContent= "(" + dayjs().format("DD/MM/YYYY")+ ")";
-    $(".icon").attr("src", `https://openweathermap.org/img/w/${icon}.png`)
-        .attr("alt", description);
- };
+    $("#current-date").text(`${dayjs.unix(current.dt).format(" (DD/MM/YYYY) ")} `);
+    $(".icon")
+        .attr("src",`https://openweathermap.org/img/w/${current.weather[0]["icon"]}.png`)
+        .attr("alt", current.weather[0]["description"]);
+
+    for( var i = 0 ; i < weatherLegends.length ; i++){
+        weatherLegends[i].value = current[legends[i]];
+        var listEl = document.createElement("li");
+        var markup = `<p>${weatherLegends[i].name}</p><p>${weatherLegends[i].value}</p><p>${units[i]}</p>`;
+        listEl.innerHTML = markup;
+        currentWeatherEl.appendChild(listEl);
+    }
+    uviCheck();
+ }
+
+ var displayDailyData = function(daily){
+
+    for (var i = 1 ; i <= futureDays ; i++){
+
+        var divEl = document.createElement("div");
+        
+        var dailyData = 
+        `<time class="col s12">${dayjs.unix(daily[i].dt).format("DD/MM/YYYY")}</time>
+        <img src="https://openweathermap.org/img/w/${daily[i].weather[0]["icon"]}.png">
+        <ul>
+        <li><p>Temp: ${daily[i].temp.day}<sup>o</sup>F<p></li>
+        <li><p>Wind: ${daily[i].wind_speed} MPH</p></li>
+        <li><p>Humidity: ${daily[i].humidity}%</p></li>
+        </ul>`;
+
+        divEl.innerHTML = dailyData;
+
+        var wrapperEl = document.querySelector(".daily-wrapper");
+        wrapperEl.appendChild(divEl);
+ }
+
+ $(".daily-wrapper div").addClass("weather-forecast card-panel blue-grey white-text col s2");
+
+ }

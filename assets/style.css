@@ -8,6 +8,7 @@ h1 {
 h2 {
     color: black;
     text-align: left;
+    font-size: 2rem;
 }
 
 h3 {
@@ -21,6 +22,18 @@ img {
 
 p {
     display:inline;
+}
+
+.daily-wrapper {
+    display:flex;
+    flex-wrap:wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.weather-forecast{
+    margin: 0px !important;
 }
 
 .title {
@@ -39,13 +52,13 @@ p {
   text-align: center;
 }
 
-.wrapper {
+.current-wrapper {
     border: 0.1rem solid black;
     padding: 0.5rem;
     font-size: 2rem;
 }
 
-.current-weather {
+.weather {
     padding: 1rem;
     height: 10rem;
 }
