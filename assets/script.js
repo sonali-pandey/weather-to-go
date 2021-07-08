@@ -34,7 +34,7 @@ var displayHistory = function(){
 
     loadSearch()
 
-    for(var i = 0 ; i < searchCount; i++){
+    for(var i = searchCount-1 ; i >= 0 ; i--){
         var historyListEl = $("<li>")
             .text(cities[i][0].name)
             .addClass("search-history btn grey col s12");
@@ -52,7 +52,10 @@ var loadSearch = function(){
         cities=[];
         return 0;
     }else{
-        searchCount = cities.length;
+        if(cities.length>10){
+            cities.shift();
+            searchCount = cities.length;
+        }
         return 1;
     }
     
