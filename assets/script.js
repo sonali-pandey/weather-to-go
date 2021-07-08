@@ -265,3 +265,16 @@ var uviCheck = function(){
         alert("Please enter a city name.")
     }
 });
+
+$(".history").on("click", function(e){
+    e.preventDefault();
+    var selection = e.target.innerHTML;
+
+    if(selection){
+        getLocation(selection);
+    }else{
+        alert("Please enter a city name.")
+    }
+});
+
+displayHistory();
