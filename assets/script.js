@@ -28,6 +28,55 @@ const weatherData = [
     }
     ];
 
+var displayHistory = function(){
+
+    $(".history li").remove();
+
+    loadSearch()
+
+    for(var i = 0 ; i < searchCount; i++){
+        var historyListEl = $("<li>")
+            .text(cities[i][0].name)
+            .addClass("search-history btn grey col s12");
+        
+        $(".history").append(historyListEl);
+
+    }
+
+} 
+
+var loadSearch = function(){
+    cities = JSON.parse(localStorage.getItem("cities"));
+
+    if(!cities){
+        cities=[];
+        return 0;
+    }else{
+        searchCount = cities.length;
+        return 1;
+    }
+    
+}
+
+var checkDuplicateSearch = function (city){
+
+    var arr = loadSearch();
+
+    var duplicate = 0;
+
+    if(arr){
+    
+   for (var i = 0; i< searchCount; i++){
+       if((cities[i][0].name === city)){
+           duplicate = 1;
+           break;
+       }
+   }
+    if(duplicate === 0){
+        saveSearch(city);
+    }
+}else{saveSearch(city);}
+}
 
 var saveSearch = function(city){
 
@@ -41,6 +90,9 @@ var saveSearch = function(city){
 
     // save searches in local storage
     localStorage.setItem("cities", JSON.stringify(cities));
+
+    var arry = loadSearch();
+    displayHistory();
 
 }
 
@@ -194,7 +246,7 @@ var uviCheck = function(){
             if(response.ok){
                 var lat = data.coord.lat;
                 var long = data.coord.lon;
-                saveSearch(data.name);
+                checkDuplicateSearch(data.name);
                 getForecast(data.name, long,lat);
             }else{
                 alert("Error");
