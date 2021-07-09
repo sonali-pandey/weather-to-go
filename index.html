@@ -8,37 +8,50 @@
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <!-- Compiled and minified CSS -->
+    <!-- Compiled and minified CSS  materialize -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
-    <!-- Compiled and minified JavaScript -->
+    <!-- Compiled and minified JavaScript materialize -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
+    <!-- minified Jquery -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
+    <!-- Style Sheet -->
     <link rel="stylesheet" href="./assets/style.css">
 
     <title>Weather To Go</title>
 </head>
 <body>
 
+    <!-- App Header -->
     <header class="row">
         <h1 class="white-text col s12">Weather Dashboard</h1>
     </header>
     
+
     <main class="row">
 
+        <!-- Search and History Section -->
         <section class="form-wrapper col s3">
+
+            <!-- Search Form -->
             <form id="user-form" class="col s12">
                 <label for="city-name" class="form-label col s12"><h2>Search for a City:</h2></label>
                 <input id="city-name" type="text" placeholder="example: San Diego" class="form-input col s12">
                 <button type="submit" id="submit" class="waves-effect waves-light btn blue col s12">Search</button>
             </form>
 
-            <div class="search-history col s12"><ul class="history" id="city-name"></ul></div>
+            <!-- Display History -->
+            <div class="search-history col s12">
+                <ul class="history" id="city-name"></ul>
+            </div>
         </section>
 
+        <!-- Weather Forecast Section -->
         <section class="weather col s9">
+
+            <!-- Current Day Forecast -->
             <div class="current-wrapper col s12">
                 <div class="title col s12">
                     <h3 id="city"></h3>
@@ -48,14 +61,17 @@
                 <ul class="current-data"></ul>
             </div>
 
+            <!-- 5-Day Forecast -->
             <h4 class="col s12">5-Day Forecast:</h4>
 
             <div class="daily-wrapper col s12"></div>
 
-    </section>
-        </main>
+        </section>
+    </main>
 
+    <!-- Day.js Library -->
     <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+    <!-- Javascript -->
     <script src="assets/script.js"></script>
 </body>
 </html>
