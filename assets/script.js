@@ -11,7 +11,7 @@ const futureDays = 5;
 var cities=[];
 
 // number of searches made and keep history to max 10 
-var searchCount = 0;
+var searchCount;
 var forecastArrIndex;
 var listEl;
 
@@ -58,7 +58,16 @@ var displayHistory = function(){
 
 // loading search hostory from local storage
 var loadSearch = function(){
+    // loading search history from local storage
     cities = JSON.parse(localStorage.getItem("cities"));
+
+    // loading the search count to navigate through the cities array from local storage
+    searchCount = JSON.parse(localStorage.getItem("searchCount"));
+
+    // checking if the search count is null then set the value to 0
+    if(!searchCount){
+        searchCount = 0;
+    }
 
     if(!cities){
         cities=[];
@@ -120,6 +129,9 @@ var saveSearch = function(city){
 
     // save searches in local storage
     localStorage.setItem("cities", JSON.stringify(cities));
+
+    // save the search count in local storage
+    localStorage.setItem("searchCount", JSON.stringify(searchCount));
 
     var arry = loadSearch();
     displayHistory();
